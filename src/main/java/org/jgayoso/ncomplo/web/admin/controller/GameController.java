@@ -115,6 +115,7 @@ public class GameController {
                             null : game.getGameSideB().getId());
             gameBean.setScoreA(game.getScoreA());
             gameBean.setScoreB(game.getScoreB());
+            gameBean.setIsLive(this.gameService.isGameLive(game.getId()));
         }
         
         model.addAttribute("game", gameBean);
@@ -151,7 +152,8 @@ public class GameController {
                 gameBean.getGameSideBId(),
                 gameBean.getScoreA(),
                 gameBean.getScoreB());
-        
+
+        this.gameService.setGameIsLive(gameBean.getId(), gameBean.getIsLive());
         return "redirect:list";
         
     }

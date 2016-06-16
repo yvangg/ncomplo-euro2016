@@ -36,7 +36,8 @@ public class GameBean implements Serializable {
     
     @NotNull
     private Integer defaultBetTypeId;
-    
+
+    private boolean isLive;
     
     private Date date;
     
@@ -165,7 +166,12 @@ public class GameBean implements Serializable {
     public List<LangBean> getNamesByLang() {
         return this.namesByLang;
     }
-    
-    
-    
+
+    public boolean getIsLive() {
+        return isLive;
+    }
+
+    public void setIsLive(boolean live) {
+        isLive = live;
+    }
 }

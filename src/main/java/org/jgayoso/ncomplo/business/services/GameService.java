@@ -1,10 +1,6 @@
 package org.jgayoso.ncomplo.business.services;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import org.jgayoso.ncomplo.business.entities.Competition;
 import org.jgayoso.ncomplo.business.entities.Game;
@@ -24,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
-    
+
+    private Set<Integer> liveGames;
     
     @Autowired
     private CompetitionRepository competitionRepository;
@@ -116,8 +113,26 @@ public class GameService {
         
     }
     
-    
-    
+    public void setGameIsLive(final Integer gameId, final boolean isLive) {
+        if (this.liveGames == null) {
+            this.liveGames = new HashSet<Integer>();
+        }
+        if (gameId != null) {
+            if (isLive) {
+                this.liveGames.add(gameId);
+            } else {
+                this.liveGames.remove(gameId);
+            }
+        }
+    }
+
+    public boolean isGameLive(final Integer gameId) {
+        if (this.liveGames == null) {
+            return false;
+        }
+        return this.liveGames.contains(gameId);
+    }
+
     @Transactional
     public void delete(final Integer gameId) {
         
